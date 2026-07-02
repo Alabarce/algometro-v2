@@ -126,6 +126,7 @@ Partial Class Form1
         Me.Button13 = New System.Windows.Forms.Button()
         Me.Button14 = New System.Windows.Forms.Button()
         Me.Button15 = New System.Windows.Forms.Button()
+        Me.Label39 = New System.Windows.Forms.Label()
         Me.TextBox33 = New System.Windows.Forms.TextBox()
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Interface_USB.SuspendLayout()
@@ -557,6 +558,7 @@ Partial Class Form1
         '
         'Animal
         '
+        Me.Animal.Controls.Add(Me.Label39)
         Me.Animal.Controls.Add(Me.TextBox33)
         Me.Animal.Controls.Add(Me.Label17)
         Me.Animal.Controls.Add(Me.Label18)
@@ -698,6 +700,15 @@ Partial Class Form1
         Me.Label16.Size = New System.Drawing.Size(78, 13)
         Me.Label16.TabIndex = 290
         Me.Label16.Text = "PONTO ZERO"
+        '
+        'Label39
+        '
+        Me.Label39.AutoSize = True
+        Me.Label39.Location = New System.Drawing.Point(329, 340)
+        Me.Label39.Name = "Label39"
+        Me.Label39.Size = New System.Drawing.Size(78, 13)
+        Me.Label39.TabIndex = 305
+        Me.Label39.Text = "PONTO ZERO"
         '
         'Button7
         '
@@ -1208,5 +1219,6 @@ Partial Class Form1
     Friend WithEvents GaugeCanal2 As GaugeDLL.GaugeControl
     Friend WithEvents GaugeCanal3 As GaugeDLL.GaugeControl
     Friend WithEvents GaugeCanal4 As GaugeDLL.GaugeControl
+    Friend WithEvents Label39 As System.Windows.Forms.Label
 
 End Class

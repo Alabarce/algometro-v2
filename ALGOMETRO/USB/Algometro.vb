@@ -299,7 +299,6 @@ Public Class Form1
 
         conta_pontos = conta_pontos + 1
         AMOSTRAGEM = AMOSTRAGEM + 1
-        FORCA(1) = leitura_filtro(0, False)
         MOSTRA_FORCA(1) = FORCA(1) / 1000
         MOSTRA_FORCA(2) = FORCA(2) / 1000
         MOSTRA_FORCA(3) = FORCA(3) / 1000
