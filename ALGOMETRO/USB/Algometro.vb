@@ -347,6 +347,10 @@ Public Class Form1
         TextBox24.Text = Format(FORCA_CALIBRADA(2), "###0")
         TextBox27.Text = Format(FORCA_CALIBRADA(3), "###0")
         TextBox30.Text = Format(FORCA_CALIBRADA(4), "###0")
+        GaugeCanal1.GaugeValue = CSng(FORCA_CALIBRADA(1))
+        GaugeCanal2.GaugeValue = CSng(FORCA_CALIBRADA(2))
+        GaugeCanal3.GaugeValue = CSng(FORCA_CALIBRADA(3))
+        GaugeCanal4.GaugeValue = CSng(FORCA_CALIBRADA(4))
 
 
         If CALIBRACAO = True Then

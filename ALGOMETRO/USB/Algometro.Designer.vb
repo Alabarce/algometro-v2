@@ -24,6 +24,10 @@ Partial Class Form1
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
+        Me.GaugeCanal1 = New GaugeDLL.GaugeControl()
+        Me.GaugeCanal2 = New GaugeDLL.GaugeControl()
+        Me.GaugeCanal3 = New GaugeDLL.GaugeControl()
+        Me.GaugeCanal4 = New GaugeDLL.GaugeControl()
         Me.DataGridView1 = New System.Windows.Forms.DataGridView()
         Me.Label9 = New System.Windows.Forms.Label()
         Me.Label38 = New System.Windows.Forms.Label()
@@ -1007,11 +1011,55 @@ Partial Class Form1
         Me.TextBox33.Size = New System.Drawing.Size(69, 20)
         Me.TextBox33.TabIndex = 300
         '
+        'GaugeCanal1
+        '
+        Me.GaugeCanal1.Location = New System.Drawing.Point(466, 337)
+        Me.GaugeCanal1.Name = "GaugeCanal1"
+        Me.GaugeCanal1.Size = New System.Drawing.Size(194, 190)
+        Me.GaugeCanal1.GaugeMin = 0
+        Me.GaugeCanal1.GaugeMax = 2000
+        Me.GaugeCanal1.Unidade = "gf"
+        Me.GaugeCanal1.TabIndex = 301
+        '
+        'GaugeCanal2
+        '
+        Me.GaugeCanal2.Location = New System.Drawing.Point(687, 337)
+        Me.GaugeCanal2.Name = "GaugeCanal2"
+        Me.GaugeCanal2.Size = New System.Drawing.Size(194, 190)
+        Me.GaugeCanal2.GaugeMin = 0
+        Me.GaugeCanal2.GaugeMax = 2000
+        Me.GaugeCanal2.Unidade = "gf"
+        Me.GaugeCanal2.TabIndex = 302
+        '
+        'GaugeCanal3
+        '
+        Me.GaugeCanal3.Location = New System.Drawing.Point(909, 337)
+        Me.GaugeCanal3.Name = "GaugeCanal3"
+        Me.GaugeCanal3.Size = New System.Drawing.Size(194, 190)
+        Me.GaugeCanal3.GaugeMin = 0
+        Me.GaugeCanal3.GaugeMax = 2000
+        Me.GaugeCanal3.Unidade = "gf"
+        Me.GaugeCanal3.TabIndex = 303
+        '
+        'GaugeCanal4
+        '
+        Me.GaugeCanal4.Location = New System.Drawing.Point(1129, 337)
+        Me.GaugeCanal4.Name = "GaugeCanal4"
+        Me.GaugeCanal4.Size = New System.Drawing.Size(194, 190)
+        Me.GaugeCanal4.GaugeMin = 0
+        Me.GaugeCanal4.GaugeMax = 2000
+        Me.GaugeCanal4.Unidade = "gf"
+        Me.GaugeCanal4.TabIndex = 304
+        '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1343, 497)
+        Me.ClientSize = New System.Drawing.Size(1343, 540)
+        Me.Controls.Add(Me.GaugeCanal4)
+        Me.Controls.Add(Me.GaugeCanal3)
+        Me.Controls.Add(Me.GaugeCanal2)
+        Me.Controls.Add(Me.GaugeCanal1)
         Me.Controls.Add(Me.Button15)
         Me.Controls.Add(Me.Button14)
         Me.Controls.Add(Me.Button13)
@@ -1144,5 +1192,9 @@ Partial Class Form1
     Friend WithEvents Button14 As System.Windows.Forms.Button
     Friend WithEvents Button15 As System.Windows.Forms.Button
     Friend WithEvents TextBox33 As System.Windows.Forms.TextBox
+    Friend WithEvents GaugeCanal1 As GaugeDLL.GaugeControl
+    Friend WithEvents GaugeCanal2 As GaugeDLL.GaugeControl
+    Friend WithEvents GaugeCanal3 As GaugeDLL.GaugeControl
+    Friend WithEvents GaugeCanal4 As GaugeDLL.GaugeControl
 
 End Class
