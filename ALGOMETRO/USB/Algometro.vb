@@ -146,10 +146,9 @@ Public Class Form1
     End Sub
     Public Sub INICIALIZAR()
         segundo_inicial = VALOR_SEGUNDO 'Int(Environment.TickCount / 1000)
-        System.Threading.Thread.Sleep(600)
+        'System.Threading.Thread.Sleep(600) ' TEMPORARIO: removido para não travar UI
         data_hoje = Date.Now
-        data = Mid(data_hoje, 1, 2) + Mid(data_hoje, 4, 2) + Mid(data_hoje, 7, 4) + "_" +
-        Mid(data_hoje, 12, 2) + Mid(data_hoje, 15, 2) + Mid(data_hoje, 18, 2)
+        data = Format(Date.Now, "ddMMyyyy_HHmmss")
         nome_arquivo = "C:\ALGOMETRO\Resultados\" & TB_Arquivo.Text & data & ".csv"
         texto_saida = "Data Atual;" & "Contagem;" + "Força Maxima"
 
@@ -282,38 +281,18 @@ Public Class Form1
             TextBox8.Text = Mid(palavra3, 27, 8)
             TextBox9.Text = Mid(palavra3, 1, 2)
         Else
-            FORCA(1) = ((Asc(Mid(palavra3, 3, 1)) * 256 + Asc(Mid(palavra3, 4, 1)))) / 1.26 +
-            ((Asc(Mid(palavra3, 5, 1)) * 256 + Asc(Mid(palavra3, 6, 1)))) / 1.26 +
-            ((Asc(Mid(palavra3, 7, 1)) * 256 + Asc(Mid(palavra3, 8, 1)))) / 1.26 +
-            ((Asc(Mid(palavra3, 9, 1)) * 256 + Asc(Mid(palavra3, 10, 1)))) / 1.26 +
-            ((Asc(Mid(palavra3, 11, 1)) * 256 + Asc(Mid(palavra3, 12, 1)))) / 1.26 +
-            ((Asc(Mid(palavra3, 13, 1)) * 256 + Asc(Mid(palavra3, 14, 1)))) / 1.26 +
-            ((Asc(Mid(palavra3, 15, 1)) * 256 + Asc(Mid(palavra3, 16, 1)))) / 1.26 +
-            ((Asc(Mid(palavra3, 17, 1)) * 256 + Asc(Mid(palavra3, 18, 1)))) / 1.26 +
-            ((Asc(Mid(palavra3, 19, 1)) * 256 + Asc(Mid(palavra3, 20, 1)))) / 1.26 +
-            ((Asc(Mid(palavra3, 21, 1)) * 256 + Asc(Mid(palavra3, 22, 1)))) / 1.26 +
-            ((Asc(Mid(palavra3, 23, 1)) * 256 + Asc(Mid(palavra3, 24, 1)))) / 1.26 +
-            ((Asc(Mid(palavra3, 25, 1)) * 256 + Asc(Mid(palavra3, 26, 1)))) / 1.26 +
-            ((Asc(Mid(palavra3, 27, 1)) * 256 + Asc(Mid(palavra3, 28, 1)))) / 1.26 +
-            ((Asc(Mid(palavra3, 29, 1)) * 256 + Asc(Mid(palavra3, 30, 1)))) / 1.26 +
-            ((Asc(Mid(palavra3, 31, 1)) * 256 + Asc(Mid(palavra3, 32, 1)))) / 1.26 +
-            ((Asc(Mid(palavra3, 33, 1)) * 256 + Asc(Mid(palavra3, 34, 1)))) / 1.26 +
-            ((Asc(Mid(palavra3, 35, 1)) * 256 + Asc(Mid(palavra3, 36, 1)))) / 1.26 +
-            ((Asc(Mid(palavra3, 37, 1)) * 256 + Asc(Mid(palavra3, 38, 1)))) / 1.26 +
-            ((Asc(Mid(palavra3, 39, 1)) * 256 + Asc(Mid(palavra3, 40, 1)))) / 1.26 +
-            ((Asc(Mid(palavra3, 41, 1)) * 256 + Asc(Mid(palavra3, 42, 1)))) / 1.26 +
-            ((Asc(Mid(palavra3, 43, 1)) * 256 + Asc(Mid(palavra3, 44, 1)))) / 1.26 +
-            ((Asc(Mid(palavra3, 45, 1)) * 256 + Asc(Mid(palavra3, 46, 1)))) / 1.26 +
-            ((Asc(Mid(palavra3, 47, 1)) * 256 + Asc(Mid(palavra3, 48, 1)))) / 1.26 +
-            ((Asc(Mid(palavra3, 49, 1)) * 256 + Asc(Mid(palavra3, 50, 1)))) / 1.26 +
-            ((Asc(Mid(palavra3, 51, 1)) * 256 + Asc(Mid(palavra3, 52, 1)))) / 1.26 +
-            ((Asc(Mid(palavra3, 53, 1)) * 256 + Asc(Mid(palavra3, 54, 1)))) / 1.26 +
-            ((Asc(Mid(palavra3, 55, 1)) * 256 + Asc(Mid(palavra3, 56, 1)))) / 1.26 +
-            ((Asc(Mid(palavra3, 57, 1)) * 256 + Asc(Mid(palavra3, 58, 1)))) / 1.26 +
-            ((Asc(Mid(palavra3, 59, 1)) * 256 + Asc(Mid(palavra3, 60, 1)))) / 1.26 +
-            ((Asc(Mid(palavra3, 61, 1)) * 256 + Asc(Mid(palavra3, 62, 1)))) / 1.26 +
-            ((Asc(Mid(palavra3, 63, 1)) * 256 + Asc(Mid(palavra3, 64, 1)))) / 1.26
-            FORCA(1) = FORCA(1) / 31
+            ' TEMPORARIO: loop intercalado 4 canais (ch1@byte3, ch2@byte5, ch3@byte7, ch4@byte9, passo 8)
+            For ch As Integer = 1 To 4
+                Dim soma As Double = 0
+                Dim count As Integer = 0
+                Dim pos As Integer = 1 + ch * 2
+                Do While pos + 1 <= 64
+                    soma += (Asc(Mid(palavra3, pos, 1)) * 256 + Asc(Mid(palavra3, pos + 1, 1))) / 1.26
+                    pos += 8
+                    count += 1
+                Loop
+                If count > 0 Then FORCA(ch) = soma / count
+            Next
         End If
 
         conta_pontos = conta_pontos + 1
@@ -467,10 +446,9 @@ Public Class Form1
 
         If LIGADO = True Then
             INICIALIZAR()
-            System.Threading.Thread.Sleep(600)
+            'System.Threading.Thread.Sleep(600) ' TEMPORARIO: removido para não travar UI
             data_hoje = Date.Now
-            data = Mid(data_hoje, 1, 2) + Mid(data_hoje, 4, 2) + Mid(data_hoje, 7, 4) + "_" +
-            Mid(data_hoje, 12, 2) + Mid(data_hoje, 15, 2) + Mid(data_hoje, 18, 2)
+            data = Format(Date.Now, "ddMMyyyy_HHmmss")
             BTN_INICIAR.Text = "PARAR"
             DataGridView1.RowCount = 1
             DataGridView2.RowCount = 1
@@ -585,11 +563,11 @@ fim_inicio:
         BufferOut(0) = 0
         BufferOut(1) = Asc("P")
         hidWriteEx(VendorID, ProductID, BufferOut(0))
-        Threading.Thread.Sleep(1000)
+        'Threading.Thread.Sleep(1000) ' TEMPORARIO: removido para não travar UI
         BufferOut(0) = 0
         BufferOut(1) = Asc("Z")
         hidWriteEx(VendorID, ProductID, BufferOut(0))
-        Threading.Thread.Sleep(1000)
+        'Threading.Thread.Sleep(1000) ' TEMPORARIO: removido para não travar UI
         BufferOut(0) = 0
         BufferOut(1) = Asc("A")
         BufferOut(2) = 1
@@ -642,7 +620,7 @@ fim_inicio:
     Private Sub Button6_Click(sender As Object, e As EventArgs) Handles Button6.Click
         CALIBRACAO = True
         PONTO_ZERO(2) = FORCA(2) / 1000
-        TextBox25.Text = Format(PONTO_ZERO, "###0.00")
+        TextBox25.Text = Format(PONTO_ZERO(2), "###0.00")
         PONTO_ZERO_CALIBRADO(2) = 0
         TabControl1.SelectedIndex = 0
         BTN_INICIAR.Enabled = CALIBRACAO
@@ -718,12 +696,39 @@ fim_inicio:
             .WriteAllText("C:\Algometro\config.txt", TB_Obs.Text & vbCrLf, True)
         End With
         INICIALIZAR()
-        System.Threading.Thread.Sleep(600)
+        'System.Threading.Thread.Sleep(600) ' TEMPORARIO: removido para não travar UI
         data_hoje = Date.Now
-        data = Mid(data_hoje, 1, 2) + Mid(data_hoje, 4, 2) + Mid(data_hoje, 7, 4) + "_" +
-        Mid(data_hoje, 12, 2) + Mid(data_hoje, 15, 2) + Mid(data_hoje, 18, 2)
+        data = Format(Date.Now, "ddMMyyyy_HHmmss")
         BTN_INICIAR.Text = "PARAR"
         DataGridView1.RowCount = 1
+    End Sub
+
+    Private Sub Button7_Click(sender As Object, e As EventArgs) Handles Button7.Click
+        CALIBRACAO = True
+        PONTO_ZERO(3) = FORCA(3) / 1000
+        TextBox28.Text = Format(PONTO_ZERO(3), "###0.00")
+        PONTO_ZERO_CALIBRADO(3) = 0
+        TabControl1.SelectedIndex = 0
+        BTN_INICIAR.Enabled = CALIBRACAO
+        MAXIMO(3) = 0
+        Button11.Text = Format(1000 * (MAXIMO(3) + PONTO_ZERO(3)), "###0") + " gf"
+        Timer5.Enabled = False
+        BTN_INICIAR.Text = "INICIAR"
+        LIGADO = False
+    End Sub
+
+    Private Sub Button8_Click(sender As Object, e As EventArgs) Handles Button8.Click
+        CALIBRACAO = True
+        PONTO_ZERO(4) = FORCA(4) / 1000
+        TextBox31.Text = Format(PONTO_ZERO(4), "###0.00")
+        PONTO_ZERO_CALIBRADO(4) = 0
+        TabControl1.SelectedIndex = 0
+        BTN_INICIAR.Enabled = CALIBRACAO
+        MAXIMO(4) = 0
+        Button12.Text = Format(1000 * (MAXIMO(4) + PONTO_ZERO(4)), "###0") + " gf"
+        Timer5.Enabled = False
+        BTN_INICIAR.Text = "INICIAR"
+        LIGADO = False
     End Sub
 
     Private Sub Button4_Click(sender As Object, e As EventArgs) Handles Button4.Click
