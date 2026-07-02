@@ -105,12 +105,13 @@ Public Class Form1
 
 
 
-    Private Sub ATUALIZA_VISUAL()
-        DataGridView1.Rows.Add()
-        DataGridView1.Rows(contagem_bbb).Cells(0).Value = contagem_bbb + 1
-        DataGridView1.Rows(contagem_bbb).Cells(1).Value = Button2.Text
-        DataGridView1.FirstDisplayedScrollingRowIndex = DataGridView1.RowCount - 1
-        contagem_bbb = contagem_bbb + 1
+    Private Sub ATUALIZA_VISUAL(dgv As DataGridView, valorText As String)
+        dgv.Rows.Add()
+        Dim idx As Integer = dgv.RowCount - 2
+        dgv.Rows(idx).Cells(0).Value = idx + 1
+        dgv.Rows(idx).Cells(1).Value = valorText
+        dgv.FirstDisplayedScrollingRowIndex = dgv.RowCount - 1
+        contagem_bbb += 1
     End Sub
 
 
@@ -352,18 +353,22 @@ Public Class Form1
             If Mid(palavra3, 1, 1) = "K" Then
                 TextBox4.BackColor = Color.Black
                 Timer2.Enabled = True
-                DataGridView1.Rows.Add()
-                DataGridView1.Rows(contagem_bbb).Cells(0).Value = contagem_bbb + 1
-                DataGridView1.Rows(contagem_bbb).Cells(1).Value = Button2.Text
-                DataGridView1.FirstDisplayedScrollingRowIndex = DataGridView1.RowCount - 1
-                contagem_bbb = contagem_bbb + 1
-                texto_saida = Date.Now & ";" & contagem_bbb & ";" & Button2.Text
+                ATUALIZA_VISUAL(DataGridView1, Button2.Text)
+                ATUALIZA_VISUAL(DataGridView2, Button10.Text)
+                ATUALIZA_VISUAL(DataGridView3, Button11.Text)
+                ATUALIZA_VISUAL(DataGridView4, Button12.Text)
+                texto_saida = Date.Now & ";" & contagem_bbb & ";" &
+                              Button2.Text & ";" & Button10.Text & ";" &
+                              Button11.Text & ";" & Button12.Text
                 With My.Computer.FileSystem
                     .WriteAllText(nome_arquivo, texto_saida & vbCrLf, True)
                 End With
-                MAXIMO(1) = 0
-                Button2.Text = Format(1000 * (MAXIMO(1) + PONTO_ZERO(1)), "###0") + " gf"
-                System.Threading.Thread.Sleep(300)
+                MAXIMO(1) = 0 : MAXIMO(2) = 0 : MAXIMO(3) = 0 : MAXIMO(4) = 0
+                Button2.Text = Format(PONTO_ZERO(1) * 1000, "###0") + " gf"
+                Button10.Text = Format(PONTO_ZERO(2) * 1000, "###0") + " gf"
+                Button11.Text = Format(PONTO_ZERO(3) * 1000, "###0") + " gf"
+                Button12.Text = Format(PONTO_ZERO(4) * 1000, "###0") + " gf"
+                'System.Threading.Thread.Sleep(300) ' TEMPORARIO: removido para não travar UI
             End If
         End If
         If Mid(palavra3, 1, 1) = "R" Then
@@ -414,12 +419,14 @@ Public Class Form1
             MAXIMO(4) = FORCA_CALIBRADA(4)
         End If
 
-        If MAXIMO(1) < 30 Then
-            MAXIMO(1) = 0
-        End If
-        If MAXIMO(1) >= 0 Then
-            Button2.Text = Format(MAXIMO(1), "###0") + " gf"
-        End If
+        If MAXIMO(1) < 30 Then MAXIMO(1) = 0
+        If MAXIMO(2) < 30 Then MAXIMO(2) = 0
+        If MAXIMO(3) < 30 Then MAXIMO(3) = 0
+        If MAXIMO(4) < 30 Then MAXIMO(4) = 0
+        Button2.Text = Format(MAXIMO(1), "###0") + " gf"
+        Button10.Text = Format(MAXIMO(2), "###0") + " gf"
+        Button11.Text = Format(MAXIMO(3), "###0") + " gf"
+        Button12.Text = Format(MAXIMO(4), "###0") + " gf"
         TextBox1.Text = Format(FORCA_CALIBRADA(1), "###0")
         TextBox14.Text = Format(FORCA_CALIBRADA(2), "###0")
         TextBox18.Text = Format(FORCA_CALIBRADA(3), "###0")
@@ -591,8 +598,22 @@ fim_inicio:
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
         MAXIMO(1) = (FORCA(1) - 1000 * PONTO_ZERO(1)) / 1000
-        Button2.Text = MAXIMO(1)
-        Button2.Text = Button2.Text + " gf"
+        Button2.Text = Format(MAXIMO(1), "###0") + " gf"
+    End Sub
+
+    Private Sub Button14_Click(sender As Object, e As EventArgs) Handles Button14.Click
+        MAXIMO(2) = (FORCA(2) - 1000 * PONTO_ZERO(2)) / 1000
+        Button10.Text = Format(MAXIMO(2), "###0") + " gf"
+    End Sub
+
+    Private Sub Button13_Click(sender As Object, e As EventArgs) Handles Button13.Click
+        MAXIMO(3) = (FORCA(3) - 1000 * PONTO_ZERO(3)) / 1000
+        Button11.Text = Format(MAXIMO(3), "###0") + " gf"
+    End Sub
+
+    Private Sub Button15_Click(sender As Object, e As EventArgs) Handles Button15.Click
+        MAXIMO(4) = (FORCA(4) - 1000 * PONTO_ZERO(4)) / 1000
+        Button12.Text = Format(MAXIMO(4), "###0") + " gf"
     End Sub
 
     Private Sub TabControl1_SelectedIndexChanged(sender As Object, e As EventArgs) Handles TabControl1.SelectedIndexChanged
@@ -646,7 +667,7 @@ fim_inicio:
 
     End Sub
     Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
-        ATUALIZA_VISUAL()
+        ATUALIZA_VISUAL(DataGridView1, Button2.Text)
         texto_saida = Date.Now & ";" & contagem_bbb & ";" & Button2.Text
         With My.Computer.FileSystem
             .WriteAllText(nome_arquivo, texto_saida & vbCrLf, True)
@@ -656,7 +677,7 @@ fim_inicio:
     End Sub
 
     Private Sub Button10_Click(sender As Object, e As EventArgs) Handles Button10.Click
-        ATUALIZA_VISUAL()
+        ATUALIZA_VISUAL(DataGridView2, Button10.Text)
         texto_saida = Date.Now & ";" & contagem_bbb & ";" & Button10.Text
         With My.Computer.FileSystem
             .WriteAllText(nome_arquivo, texto_saida & vbCrLf, True)
@@ -666,7 +687,7 @@ fim_inicio:
     End Sub
 
     Private Sub Button11_Click(sender As Object, e As EventArgs) Handles Button11.Click
-        ATUALIZA_VISUAL()
+        ATUALIZA_VISUAL(DataGridView3, Button11.Text)
         texto_saida = Date.Now & ";" & contagem_bbb & ";" & Button11.Text
         With My.Computer.FileSystem
             .WriteAllText(nome_arquivo, texto_saida & vbCrLf, True)
@@ -676,7 +697,7 @@ fim_inicio:
     End Sub
 
     Private Sub Button12_Click(sender As Object, e As EventArgs) Handles Button12.Click
-        ATUALIZA_VISUAL()
+        ATUALIZA_VISUAL(DataGridView4, Button12.Text)
         texto_saida = Date.Now & ";" & contagem_bbb & ";" & Button12.Text
         With My.Computer.FileSystem
             .WriteAllText(nome_arquivo, texto_saida & vbCrLf, True)
