@@ -24,6 +24,7 @@ Partial Class Form1
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
+        Me.Tmr_Display = New System.Windows.Forms.Timer(Me.components)
         Me.GaugeCanal1 = New GaugeDLL.GaugeControl()
         Me.GaugeCanal2 = New GaugeDLL.GaugeControl()
         Me.GaugeCanal3 = New GaugeDLL.GaugeControl()
@@ -201,7 +202,7 @@ Partial Class Form1
         '
         'Button9
         '
-        Me.Button9.Location = New System.Drawing.Point(1140, 416)
+        Me.Button9.Location = New System.Drawing.Point(12, 492)
         Me.Button9.Name = "Button9"
         Me.Button9.Size = New System.Drawing.Size(92, 52)
         Me.Button9.TabIndex = 260
@@ -1013,6 +1014,12 @@ Partial Class Form1
         '
         'GaugeCanal1
         '
+        '
+        'Tmr_Display
+        '
+        Me.Tmr_Display.Enabled = True
+        Me.Tmr_Display.Interval = 150
+        '
         Me.GaugeCanal1.Location = New System.Drawing.Point(466, 337)
         Me.GaugeCanal1.Name = "GaugeCanal1"
         Me.GaugeCanal1.Size = New System.Drawing.Size(194, 190)
@@ -1020,6 +1027,7 @@ Partial Class Form1
         Me.GaugeCanal1.GaugeMax = 2000
         Me.GaugeCanal1.Unidade = "gf"
         Me.GaugeCanal1.TabIndex = 301
+        Me.GaugeCanal1.Visible = False
         '
         'GaugeCanal2
         '
@@ -1030,6 +1038,7 @@ Partial Class Form1
         Me.GaugeCanal2.GaugeMax = 2000
         Me.GaugeCanal2.Unidade = "gf"
         Me.GaugeCanal2.TabIndex = 302
+        Me.GaugeCanal2.Visible = False
         '
         'GaugeCanal3
         '
@@ -1040,6 +1049,7 @@ Partial Class Form1
         Me.GaugeCanal3.GaugeMax = 2000
         Me.GaugeCanal3.Unidade = "gf"
         Me.GaugeCanal3.TabIndex = 303
+        Me.GaugeCanal3.Visible = False
         '
         'GaugeCanal4
         '
@@ -1050,6 +1060,7 @@ Partial Class Form1
         Me.GaugeCanal4.GaugeMax = 2000
         Me.GaugeCanal4.Unidade = "gf"
         Me.GaugeCanal4.TabIndex = 304
+        Me.GaugeCanal4.Visible = False
         '
         'Form1
         '
@@ -1192,6 +1203,7 @@ Partial Class Form1
     Friend WithEvents Button14 As System.Windows.Forms.Button
     Friend WithEvents Button15 As System.Windows.Forms.Button
     Friend WithEvents TextBox33 As System.Windows.Forms.TextBox
+    Friend WithEvents Tmr_Display As System.Windows.Forms.Timer
     Friend WithEvents GaugeCanal1 As GaugeDLL.GaugeControl
     Friend WithEvents GaugeCanal2 As GaugeDLL.GaugeControl
     Friend WithEvents GaugeCanal3 As GaugeDLL.GaugeControl

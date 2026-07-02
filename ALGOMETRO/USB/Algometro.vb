@@ -36,6 +36,7 @@ Public Class Form1
     Dim CALIBRACAO As Boolean = False
 
     Dim conta_wd As ULong = 0
+    Dim _gaugeVal(4) As Single
 
 
 
@@ -347,10 +348,10 @@ Public Class Form1
         TextBox24.Text = Format(FORCA_CALIBRADA(2), "###0")
         TextBox27.Text = Format(FORCA_CALIBRADA(3), "###0")
         TextBox30.Text = Format(FORCA_CALIBRADA(4), "###0")
-        GaugeCanal1.GaugeValue = CSng(FORCA_CALIBRADA(1))
-        GaugeCanal2.GaugeValue = CSng(FORCA_CALIBRADA(2))
-        GaugeCanal3.GaugeValue = CSng(FORCA_CALIBRADA(3))
-        GaugeCanal4.GaugeValue = CSng(FORCA_CALIBRADA(4))
+        _gaugeVal(1) = CSng(FORCA_CALIBRADA(1))
+        _gaugeVal(2) = CSng(FORCA_CALIBRADA(2))
+        _gaugeVal(3) = CSng(FORCA_CALIBRADA(3))
+        _gaugeVal(4) = CSng(FORCA_CALIBRADA(4))
 
 
         If CALIBRACAO = True Then
@@ -483,6 +484,10 @@ Public Class Form1
                 DataGridView2.Visible = True
                 DataGridView3.Visible = True
                 DataGridView4.Visible = True
+                GaugeCanal1.Visible = True
+                GaugeCanal2.Visible = True
+                GaugeCanal3.Visible = True
+                GaugeCanal4.Visible = True
                 MAXIMO(1) = 0
                 MAXIMO(2) = 0
                 MAXIMO(3) = 0
@@ -508,6 +513,10 @@ Public Class Form1
             DataGridView2.Visible = False
             DataGridView3.Visible = False
             DataGridView4.Visible = False
+            GaugeCanal1.Visible = False
+            GaugeCanal2.Visible = False
+            GaugeCanal3.Visible = False
+            GaugeCanal4.Visible = False
         End If
 fim_inicio:
     End Sub
@@ -631,6 +640,13 @@ fim_inicio:
     Private Sub Timer2_Tick(sender As Object, e As EventArgs) Handles Timer2.Tick
         TextBox4.BackColor = Color.White
         Timer2.Enabled = False
+    End Sub
+
+    Private Sub Tmr_Display_Tick(sender As Object, e As EventArgs) Handles Tmr_Display.Tick
+        GaugeCanal1.GaugeValue = _gaugeVal(1)
+        GaugeCanal2.GaugeValue = _gaugeVal(2)
+        GaugeCanal3.GaugeValue = _gaugeVal(3)
+        GaugeCanal4.GaugeValue = _gaugeVal(4)
     End Sub
 
     Private Sub Tmr_WD_Tick(sender As Object, e As EventArgs) Handles Tmr_WD.Tick
